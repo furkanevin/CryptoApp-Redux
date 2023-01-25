@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons/lib/icons';
 import { Link } from 'react-router-dom';
 import icon from '../images/logo.png';
+import MenuItem from 'antd/es/menu/MenuItem';
 const Navbar = () => {
   return (
     <div className="nav-container">
@@ -19,18 +20,18 @@ const Navbar = () => {
         </Typography.Title>
       </div>
       <Menu theme="dark">
-        <Menu.Item icon={<HomeOutlined />}>
+        <MenuItem icon={<HomeOutlined />}>
           <Link to="/">Home</Link>
-        </Menu.Item>
-        <Menu.Item icon={<FundOutlined />}>
+        </MenuItem>
+        <MenuItem icon={<FundOutlined />}>
           <Link to="/cryptocurrencies">Cryptocurrencies</Link>
-        </Menu.Item>
-        <Menu.Item icon={<MoneyCollectOutlined />}>
+        </MenuItem>
+        <MenuItem icon={<MoneyCollectOutlined />}>
           <Link to="/exchanges">Home</Link>
-        </Menu.Item>
-        <Menu.Item icon={<BulbOutlined />}>
+        </MenuItem>
+        <MenuItem icon={<BulbOutlined />}>
           <Link to="/news">News</Link>
-        </Menu.Item>
+        </MenuItem>
       </Menu>
     </div>
   );

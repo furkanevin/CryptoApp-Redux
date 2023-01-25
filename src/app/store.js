@@ -1,5 +1,7 @@
-const { configureStore } = require('@reduxjs/toolkit');
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import cryptoSlice from './cryptoSlice';
 
-export default configureStore({
-  reducer: {},
+const rootReducer = combineReducers({
+  cryptoState: cryptoSlice,
 });
+export default configureStore({ reducer: rootReducer });

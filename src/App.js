@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { Layout, Space, Typography } from 'antd';
 import {
@@ -10,8 +10,27 @@ import {
   News,
 } from './components';
 import './App.css';
+import { useDispatch } from 'react-redux';
+import useApi from './services/cryptoApi';
+import { setCryptos } from './app/cryptoSlice';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const api = useApi();
+
+  // Verileri al
+
+  useEffect(() => {
+    api
+      .get('coins')
+      .then((res) => {
+        dispatch(setCryptos(res.data.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="app">
       <div className="navbar">
