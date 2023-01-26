@@ -1,32 +1,65 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Card, Col, Row } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Card, Col, Input, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import millify from 'millify';
 import { useState, useEffect } from 'react';
 import useApi from './../services/cryptoApi';
+import { SearchOutlined } from '@ant-design/icons';
+import { setCryptos } from '../app/cryptoSlice';
 
 const Cryptocurrencies = () => {
-  const { coins } = useSelector((state) => state.cryptoState);
+  const { coins, initialized } = useSelector((state) => state.cryptoState);
   const path = window.location.pathname;
-  const [filtredCoins, setFiltredCoins] = useState([]);
-  const api = useApi();
+  const count = window.location.pathname.length < 2 ? 10 : 50;
+  const [filtredCoins, setFiltredCoins] = useState(coins);
+  const [searchTerm, setSearchTerm] = useState('');
+  const cryptoApi = useApi();
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    api
-      .get(`coins?limit=${path.length < 2 ? 10 : 100}`)
+    // path.length < 2 ? 10 : 100
+    cryptoApi
+      .get(
+        `https://coinranking1.p.rapidapi.com/coins?limit=${count}&search=${searchTerm}`
+      )
       .then((res) => {
-        setFiltredCoins(res?.data.data.coins);
+        dispatch(setCryptos(res?.data.data));
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [searchTerm]);
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const searchFilter = coins?.filter((coin) =>
+      coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFiltredCoins(searchFilter);
+  };
+  if (!initialized) {
+    return <p>Loading.....................</p>;
+  }
   return (
     <>
-      <div className="search-crypto"></div>
+      {path.length > 2 ? (
+        <form className="search-crypto" onSubmit={handleFormSubmit}>
+          <Input
+            placeholder="Search CryptoCurrency"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button className="search-btn" type="submit">
+            <SearchOutlined />
+          </button>
+        </form>
+      ) : (
+        ''
+      )}
+
       <Row gutters={[32, 32]} className="crypto-card-container">
-        {filtredCoins?.map((currency, index) => (
+        {coins?.map((currency, index) => (
           <Col
             xs={24}
             sm={12}

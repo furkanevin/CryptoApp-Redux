@@ -9,8 +9,8 @@ import News from './News';
 const { Title } = Typography;
 const Homepage = () => {
   const { stats, initialized } = useSelector((state) => state.cryptoState);
+  console.log('home>>>', stats);
 
-  if (!initialized) return <p>Laoding</p>;
   return (
     <>
       <Title level={2} className="heading">
@@ -53,7 +53,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Title>
       </div>
-      <Cryptocurrencies simplified />
+      <Cryptocurrencies />
       <div className="home-heading-container">
         <Title className="home-title" level={2}>
           Latest Crypto News
@@ -62,7 +62,7 @@ const Homepage = () => {
           <Link to="/news">Show More</Link>
         </Title>
       </div>
-      <News simplified />
+      <News />
     </>
   );
 };

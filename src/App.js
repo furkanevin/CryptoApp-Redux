@@ -16,20 +16,22 @@ import { setCryptos } from './app/cryptoSlice';
 
 const App = () => {
   const dispatch = useDispatch();
-  const api = useApi();
+  const cryptoApi = useApi();
 
   // Verileri al
 
-  useEffect(() => {
-    api
-      .get('coins')
-      .then((res) => {
-        dispatch(setCryptos(res.data.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // path.length < 2 ? 10 : 100
+  //   cryptoApi
+  //     .get(`https://coinranking1.p.rapidapi.com/coins`)
+  //     .then((res) => {
+  //       dispatch(setCryptos(res?.data.data));
+  //       console.log(res.data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <div className="app">

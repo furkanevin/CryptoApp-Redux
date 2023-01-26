@@ -351,12 +351,24 @@ a:hover {
   margin: 0px 10px !important;
 }
 .search-crypto {
+  display: flex;
   margin: 20px auto 30px auto;
   width: 250px;
 }
 .crypto-card-container {
   min-height: 80vh !important;
   justify-content: space-between;
+}
+.search-btn {
+  padding: 0 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.4s;
+}
+.search-btn:hover {
+  background-color: #d9d9d9;
+  transition: all 0.4s;
 }
 .crypto-card {
   min-width: 250px;
