@@ -11,41 +11,29 @@ import { setCryptos } from '../app/cryptoSlice';
 const Cryptocurrencies = () => {
   const { coins, initialized } = useSelector((state) => state.cryptoState);
   const path = window.location.pathname;
-  const count = window.location.pathname.length < 2 ? 10 : 50;
-  const [filtredCoins, setFiltredCoins] = useState(coins);
   const [searchTerm, setSearchTerm] = useState('');
   const cryptoApi = useApi();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // path.length < 2 ? 10 : 100
     cryptoApi
       .get(
-        `https://coinranking1.p.rapidapi.com/coins?limit=${count}&search=${searchTerm}`
+        `https://coinranking1.p.rapidapi.com/coins?limit=${
+          path.length < 2 ? 10 : 50
+        }&search=${searchTerm}`
       )
       .then((res) => {
         dispatch(setCryptos(res?.data.data));
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [searchTerm]);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const searchFilter = coins?.filter((coin) =>
-      coin.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFiltredCoins(searchFilter);
-  };
-  if (!initialized) {
-    return <p>Loading.....................</p>;
-  }
   return (
     <>
       {path.length > 2 ? (
-        <form className="search-crypto" onSubmit={handleFormSubmit}>
+        <form className="search-crypto">
           <Input
             placeholder="Search CryptoCurrency"
             onChange={(e) => setSearchTerm(e.target.value)}
