@@ -34,7 +34,9 @@ const CryptoDetails = () => {
         setCoinDetails(res.data.data?.coin);
       })
       .catch((err) => console.log(err));
+  }, []);
 
+  useEffect(() => {
     api
       .get(`/coin/${coinId}/history?timePeriod=${timeperiod}`)
       .then((res) => {

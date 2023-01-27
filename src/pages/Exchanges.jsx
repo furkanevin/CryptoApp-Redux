@@ -56,7 +56,7 @@ const Exchanges = () => {
                 }
               >
                 <h1>Hey</h1>
-                <p>This place is hardcoded section because api...</p>
+                <p>This place is hardcoded because api...</p>
               </Panel>
             </Collapse>
           </Col>

@@ -10,6 +10,7 @@ import { setCryptos } from '../app/cryptoSlice';
 
 const Cryptocurrencies = () => {
   const { coins, initialized } = useSelector((state) => state.cryptoState);
+  const [cryptoList, setCryptoList] = useState([]);
   const path = window.location.pathname;
   const [searchTerm, setSearchTerm] = useState('');
   const cryptoApi = useApi();
@@ -23,13 +24,15 @@ const Cryptocurrencies = () => {
         }&search=${searchTerm}`
       )
       .then((res) => {
-        dispatch(setCryptos(res?.data.data));
+        dispatch(setCryptos(res?.data?.data));
+        setCryptoList(res?.data?.data.coins);
+        console.log(cryptoList);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [searchTerm]);
-
+  if (!cryptoList) return 'loadin';
   return (
     <>
       {path.length > 2 ? (
@@ -47,7 +50,7 @@ const Cryptocurrencies = () => {
       )}
 
       <Row gutters={[32, 32]} className="crypto-card-container">
-        {coins?.map((currency, index) => (
+        {cryptoList?.map((currency, index) => (
           <Col
             xs={24}
             sm={12}

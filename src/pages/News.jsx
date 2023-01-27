@@ -1,15 +1,14 @@
 import { Select, Col, Row, Typography, Avatar, Card } from 'antd';
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
-import useNewsApi from './../services/cryptoNewsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNews } from '../app/newsSlice';
+import axios from 'axios';
 const path = window.location.pathname;
 const { Text, Title } = Typography;
 const { Option } = Select;
 
 const News = () => {
-  const newsApi = useNewsApi();
   const dispatch = useDispatch();
   const path = window.location.pathname;
   const { news, initialized } = useSelector((state) => state.newsState);
@@ -17,7 +16,14 @@ const News = () => {
   const [searchTerm, setSearchTerm] = useState('Cryptocurrency');
 
   useEffect(() => {
-    newsApi
+    axios.defaults.headers = {
+      'X-BingApis-SDK': 'true',
+      'X-RapidAPI-Key': '75dc092df0msh3c03138e5cc1ea2p19035ejsn916bcc592247',
+      'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com',
+    };
+    axios.defaults.baseURL = 'https://bing-news-search1.p.rapidapi.com/';
+
+    axios
       .get(`news/search?q=${searchTerm}`)
       .then((res) => {
         dispatch(setNews(res?.data));

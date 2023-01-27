@@ -13,6 +13,7 @@ import MenuItem from 'antd/es/menu/MenuItem';
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(null);
+  console.log(activeMenu);
   useEffect(() => {
     const handleResize = () => {
       setScreenSize(window.innerWidth);
@@ -21,6 +22,7 @@ const Navbar = () => {
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   useEffect(() => {
     if (screenSize < 768) {
       setActiveMenu(false);
@@ -28,6 +30,7 @@ const Navbar = () => {
       setActiveMenu(true);
     }
   }, [screenSize]);
+
   return (
     <div className="nav-container">
       <div className="logo-container">
@@ -43,18 +46,46 @@ const Navbar = () => {
         </Button>
       </div>
       {activeMenu && (
-        <Menu theme="dark">
-          <MenuItem icon={<HomeOutlined />}>
-            <Link to="/">Home</Link>
+        <Menu className="navbar-inner">
+          <MenuItem className="navbar-item" icon={<HomeOutlined />}>
+            <Link
+              onClick={() =>
+                screenSize < 768 ? setActiveMenu(!activeMenu) : ''
+              }
+              to="/"
+            >
+              Home
+            </Link>
           </MenuItem>
-          <MenuItem icon={<FundOutlined />}>
-            <Link to="/cryptocurrencies">Cryptocurrencies</Link>
+          <MenuItem className="navbar-item" icon={<FundOutlined />}>
+            <Link
+              onClick={() =>
+                screenSize < 768 ? setActiveMenu(!activeMenu) : ''
+              }
+              to="/cryptocurrencies"
+            >
+              Cryptocurrencies
+            </Link>
           </MenuItem>
-          <MenuItem icon={<MoneyCollectOutlined />}>
-            <Link to="/exchanges">Exchanges</Link>
+          <MenuItem className="navbar-item" icon={<MoneyCollectOutlined />}>
+            <Link
+              onClick={() =>
+                screenSize < 768 ? setActiveMenu(!activeMenu) : ''
+              }
+              to="/exchanges"
+            >
+              Exchanges
+            </Link>
           </MenuItem>
-          <MenuItem icon={<BulbOutlined />}>
-            <Link to="/news">News</Link>
+          <MenuItem className="navbar-item" icon={<BulbOutlined />}>
+            <Link
+              onClick={() =>
+                screenSize < 768 ? setActiveMenu(!activeMenu) : ''
+              }
+              to="/news"
+            >
+              News
+            </Link>
           </MenuItem>
         </Menu>
       )}
