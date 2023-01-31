@@ -8,7 +8,7 @@ import News from './News';
 
 const { Title } = Typography;
 const Homepage = () => {
-  const { stats } = useSelector((state) => state.cryptoState);
+  const { stats, initialized } = useSelector((state) => state.cryptoState);
 
   if (!stats) return 'Loading..';
 
@@ -21,7 +21,7 @@ const Homepage = () => {
         <Col span={12}>
           <Statistic title="Total Crpto Currencies" value={stats.total} />
         </Col>
-        <Col span={12} className="stats">
+        <Col span={12} className="stats-col">
           <Statistic
             title="Total Exchanges"
             value={millify(stats.totalExchanges)}
@@ -33,7 +33,7 @@ const Homepage = () => {
             value={millify(stats.totalMarketCap)}
           />
         </Col>
-        <Col span={12} className="stats">
+        <Col span={12} className="stats-col">
           <Statistic
             title="Total 24H Volume"
             value={millify(stats.total24hVolume)}

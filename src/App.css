@@ -151,7 +151,7 @@ a:hover {
   .crypto-card-container {
     justify-content: center;
   }
-  .stats {
+  .stats-col {
     display: flex;
     justify-content: center;
   }
