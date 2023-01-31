@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Card, Col, Input, Row } from 'antd';
+import { Card, Col, Input, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import millify from 'millify';
 import { useState, useEffect } from 'react';
@@ -10,7 +10,6 @@ import { setCryptos } from '../app/cryptoSlice';
 
 const Cryptocurrencies = () => {
   const { coins, initialized } = useSelector((state) => state.cryptoState);
-  const [cryptoList, setCryptoList] = useState([]);
   const path = window.location.pathname;
   const [searchTerm, setSearchTerm] = useState('');
   const cryptoApi = useApi();
@@ -25,14 +24,13 @@ const Cryptocurrencies = () => {
       )
       .then((res) => {
         dispatch(setCryptos(res?.data?.data));
-        setCryptoList(res?.data?.data.coins);
-        console.log(cryptoList);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [searchTerm]);
-  if (!cryptoList) return 'loadin';
+
+  if (!initialized) return 'Loading..';
   return (
     <>
       {path.length > 2 ? (
@@ -50,7 +48,7 @@ const Cryptocurrencies = () => {
       )}
 
       <Row gutters={[32, 32]} className="crypto-card-container">
-        {cryptoList?.map((currency, index) => (
+        {coins?.map((currency, index) => (
           <Col
             xs={24}
             sm={12}

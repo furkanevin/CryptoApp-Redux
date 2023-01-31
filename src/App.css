@@ -41,9 +41,9 @@ a:hover {
   margin: 10px;
   height: 100vh;
   margin: 0px;
-
   background-image: linear-gradient(120deg, #5921fd 0%, #b721ff 100%);
   padding: 5px;
+  min-height: 80px;
 }
 
 .navbar-inner {
@@ -149,6 +149,10 @@ a:hover {
     font-size: 1.3rem !important;
   }
   .crypto-card-container {
+    justify-content: center;
+  }
+  .stats {
+    display: flex;
     justify-content: center;
   }
 }

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNews } from '../app/newsSlice';
 import axios from 'axios';
-const path = window.location.pathname;
 const { Text, Title } = Typography;
 const { Option } = Select;
 
@@ -35,6 +34,8 @@ const News = () => {
 
   const demoImage =
     'https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News';
+
+  if (!initialized) return 'Loading...';
 
   return (
     <Row gutter={[24, 24]}>

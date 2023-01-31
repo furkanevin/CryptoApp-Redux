@@ -10,10 +10,11 @@ import {
 import { Link } from 'react-router-dom';
 import icon from '../images/logo.png';
 import MenuItem from 'antd/es/menu/MenuItem';
+
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(null);
-  console.log(activeMenu);
+
   useEffect(() => {
     const handleResize = () => {
       setScreenSize(window.innerWidth);

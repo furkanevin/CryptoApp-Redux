@@ -1,5 +1,5 @@
 import millify from 'millify';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Row, Statistic, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,8 +8,9 @@ import News from './News';
 
 const { Title } = Typography;
 const Homepage = () => {
-  const { stats, initialized } = useSelector((state) => state.cryptoState);
-  console.log('home>>>', stats);
+  const { stats } = useSelector((state) => state.cryptoState);
+
+  if (!stats) return 'Loading..';
 
   return (
     <>
@@ -20,7 +21,7 @@ const Homepage = () => {
         <Col span={12}>
           <Statistic title="Total Crpto Currencies" value={stats.total} />
         </Col>
-        <Col span={12}>
+        <Col span={12} className="stats">
           <Statistic
             title="Total Exchanges"
             value={millify(stats.totalExchanges)}
@@ -32,7 +33,7 @@ const Homepage = () => {
             value={millify(stats.totalMarketCap)}
           />
         </Col>
-        <Col span={12}>
+        <Col span={12} className="stats">
           <Statistic
             title="Total 24H Volume"
             value={millify(stats.total24hVolume)}

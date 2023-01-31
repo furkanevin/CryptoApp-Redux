@@ -6,4 +6,5 @@ const rootReducer = combineReducers({
   cryptoState: cryptoSlice,
   newsState: newsSlice,
 });
+
 export default configureStore({ reducer: rootReducer });

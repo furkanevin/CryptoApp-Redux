@@ -1,14 +1,12 @@
 import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { Col, Row, Typography } from 'antd';
-import { Chart } from 'chart.js/auto';
 
 const { Title } = Typography;
 
 const LineChart = ({ coinHistory, currentPrice, coinName }) => {
   const coinPrice = [];
   const coinTimestamp = [];
-  console.log(coinHistory);
 
   for (let i = 0; i < coinHistory.length; i += 1) {
     coinPrice.push(coinHistory[i].price);
